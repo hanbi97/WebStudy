@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<article>
+
+</article>
+<input type="button" value="fetch" onclick="
+    fetch('html').then(function(response){
+     response.text().then(function(text){
+        document.querySelector('article').innerHTML=text;
+         })
+      })
+    "/>
+<!--fetch('html'): html(인자)를 서버에 요청
+
+    then(): 서버가 응답하고 나서 (fetch 끝나면) 괄호 안에거를 실행해 달라는 것(asynchronous)
+    ex)
+    fetch('arg').then(func);
+    console.log(1);
+    하면 1 출력 되고 func 실행 됨
+
+    익명함수: 특정 위치에서만 쓸거니까 이름 지을 필요 없음
+    ex)
+    function c(){
+    console.log('1');
+    }
+
+    c = function(){
+    console.log('1');
+    }
+    같음
+-->
+</body>
+</html>

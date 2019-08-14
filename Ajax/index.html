@@ -1,0 +1,67 @@
+<!doctype html>
+<html>
+<head>
+  <title>WEB1 - Welcome</title>
+  <meta charset="utf-8">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+  <script src="colors.js"></script>
+</head>
+<body>
+  <h1><a href="index.html">WEB</a></h1>
+  <input id="night_day" type="button" value="night" onclick="
+    nightDayHandler(this);
+  ">
+  <ol id="nav">
+  </ol>
+  <!--
+  그냥 js 함수 가져오면 페이지별로 주소가 달라지지 않음(링크 공유 불가)
+  ==> hash방식 이용
+  ex) <p id="three"> 같이 id를 이용해 해당 페이지로 이동 가능
+      url에 /#three 이런식으로 주소 붙음
+<ol>
+    <li><a href="#!html" onclick="calltxt('html')">HTML</a></li>
+    <li><a href="2.html">CSS</a></li>
+    <li><a href="3.html">JavaScript</a></li>
+  </ol>
+  #!: hashbang
+  -->
+
+  <!--
+  근데 li가 엄청 많아서 데이터 하나 바뀌었을때 일일이 수정하기 힘드니까
+  한번의 조작으로 수정가능하게 만들고 싶음
+  ==> 데이터는 따로 저장하고 이걸 조작하는 js함수 만듬
+  -->
+  <article>
+
+  </article>
+</body>
+<script>
+  //함수로 ajax 기능 가져오기
+  function calltxt(name){
+    fetch(name).then(function(response){
+      response.text().then(function(text){
+        document.querySelector('article').innerHTML=text;
+      })
+    })
+  }
+  //hash 기능
+  if(location.hash){
+    calltxt(location.hash.substr(2));
+  }
+
+  fetch('list').then(function(response){
+    response.text().then(function(text){
+      //compact하게 글 목록 만들기
+      var items = text.split(',');
+      var tags = '';
+      for(var i=0; i<items.length; i++){
+        var item = items[i];
+        item = item.trim();
+        var tag = '<li><a href="#!'+item+'" onclick="calltxt(\''+item+'\')">'+item+'</a></li>';
+        tags += tag;
+      }
+      document.querySelector('#nav').innerHTML=tags;
+    }) //id라서 #붙임
+  });
+</script>
+</html>
